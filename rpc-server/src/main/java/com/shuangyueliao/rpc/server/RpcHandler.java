@@ -2,7 +2,6 @@ package com.shuangyueliao.rpc.server;
 
 import com.shuangyueliao.rpc.common.RpcRequest;
 import com.shuangyueliao.rpc.common.RpcResponse;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +41,7 @@ public class RpcHandler extends SimpleChannelInboundHandler<RpcRequest> {
 			response.setError(t);
 		}
 		//写入 outbundle（即RpcEncoder）进行下一步处理（即编码）后发送到channel中给客户端
-		ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
+		ctx.writeAndFlush(response);
 	}
 
 	/**

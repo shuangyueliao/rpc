@@ -3,8 +3,6 @@ package com.shuangyueliao.rpc.register;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,17 +15,16 @@ import java.util.concurrent.ThreadLocalRandom;
  * @Version 0.1
  */
 @Slf4j
-@Component
 public class ServiceDiscovery {
     private String registerAddress;
     private ZooKeeper zk;
-    @Value("${zookeeper.register.path.prefix}")
     private String dataPath;
     private volatile List<String> dataList = new ArrayList<String>();
 
-    public ServiceDiscovery(@Value("${zookeeper.url}") String registerAddress) {
+    public ServiceDiscovery(String registerAddress, String dataPath) {
         try {
             this.registerAddress = registerAddress;
+            this.dataPath = dataPath;
             zk = new ZooKeeper(registerAddress, 5000, (event) -> {
                 if (event.getState() == Watcher.Event.KeeperState.SyncConnected) {
                     log.info("zookeeper建立连接");

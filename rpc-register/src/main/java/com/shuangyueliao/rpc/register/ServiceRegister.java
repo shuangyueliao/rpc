@@ -15,12 +15,10 @@ import java.io.IOException;
 @Component
 @Slf4j
 public class ServiceRegister {
-    private String registerAddress;
     private ZooKeeper zk;
     private String dataPath;
 
     public ServiceRegister(@Value("${zookeeper.url}")String registerAddress, @Value("${zookeeper.register.path.prefix}")String dataPath) {
-        this.registerAddress = registerAddress;
         this.dataPath = dataPath;
         try {
             zk = new ZooKeeper(registerAddress, 5000, (event) -> {

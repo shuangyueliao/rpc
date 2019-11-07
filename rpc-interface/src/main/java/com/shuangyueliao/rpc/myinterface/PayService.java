@@ -1,6 +1,7 @@
 package com.shuangyueliao.rpc.myinterface;
 
-import com.shuangyueliao.rpc.client.RpcClientService;
+
+import com.shuangyueliao.rpc.common.RpcClientService;
 
 /**
  * @author shuangyueliao

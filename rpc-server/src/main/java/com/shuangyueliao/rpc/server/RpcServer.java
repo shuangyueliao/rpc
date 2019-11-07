@@ -1,9 +1,6 @@
 package com.shuangyueliao.rpc.server;
 
-import com.shuangyueliao.rpc.common.RpcDecoder;
-import com.shuangyueliao.rpc.common.RpcEncoder;
-import com.shuangyueliao.rpc.common.RpcRequest;
-import com.shuangyueliao.rpc.common.RpcResponse;
+import com.shuangyueliao.rpc.common.*;
 import com.shuangyueliao.rpc.register.ServiceRegister;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -96,7 +93,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
 			int port = Integer.parseInt(array[1]);
 
 			ChannelFuture future = bootstrap.bind(host, port).sync();
-			log.debug("client started on port {}", port);
+			log.info("client started on port {}", port);
 
 			if (serviceRegister != null) {
 				serviceRegister.register(serverAddress);

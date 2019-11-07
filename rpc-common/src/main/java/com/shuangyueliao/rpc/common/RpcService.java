@@ -1,4 +1,4 @@
-package com.shuangyueliao.rpc.server;
+package com.shuangyueliao.rpc.common;
 
 import org.springframework.stereotype.Component;
 

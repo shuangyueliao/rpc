@@ -1,10 +1,14 @@
 package com.shuangyueliao.rpc.sample.client.service.impl;
 
+import com.shuangyueliao.rpc.common.RpcClientService;
 import com.shuangyueliao.rpc.myinterface.PayService;
 import com.shuangyueliao.rpc.sample.client.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
+import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 /**
  * @author shuangyueliao
@@ -25,4 +29,8 @@ public class OrderServiceImpl implements OrderService {
         log.info("关闭订单");
     }
 
+    public static void main(String[] args) {
+        Set<Class<?>> typesAnnotatedWith = new Reflections("com.shuangyueliao.rpc.myinterface").getTypesAnnotatedWith(RpcClientService.class);
+        typesAnnotatedWith.forEach(System.out::println);
+    }
 }
