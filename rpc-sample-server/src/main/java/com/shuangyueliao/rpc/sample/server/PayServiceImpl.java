@@ -1,7 +1,7 @@
 package com.shuangyueliao.rpc.sample.server;
 
 import com.shuangyueliao.rpc.myinterface.PayService;
-import com.shuangyueliao.rpc.server.RpcService;
+import com.shuangyueliao.rpc.common.RpcService;
 import lombok.extern.slf4j.Slf4j;
 
 /**

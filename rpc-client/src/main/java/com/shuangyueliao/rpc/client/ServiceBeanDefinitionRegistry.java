@@ -1,7 +1,9 @@
 package com.shuangyueliao.rpc.sample.client.config;
 
 
+import com.shuangyueliao.rpc.client.RpcProxy;
 import com.shuangyueliao.rpc.myinterface.PayService;
+import com.shuangyueliao.rpc.register.ServiceDiscovery;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -36,12 +38,16 @@ public class ServiceBeanDefinitionRegistry implements BeanDefinitionRegistryPost
             // 则要求在FactoryBean（本应用中即ServiceFactory）提供setter方法，否则会注入失败
             // 如果采用definition.getConstructorArgumentValues()，
             // 则FactoryBean中需要提供包含该属性的构造方法，否则会注入失败
+            String registerAddress = "127.0.0.1:2181";
+            String dataPath = "/com.shuangyueliao.register";
+            ServiceDiscovery serviceDiscovery = new ServiceDiscovery(registerAddress, dataPath);
+            definition.getPropertyValues().addPropertyValue("serviceDiscovery", serviceDiscovery);
             definition.getConstructorArgumentValues().addGenericArgumentValue(beanClazz);
 
             //注意，这里的BeanClass是生成Bean实例的工厂，不是Bean本身。
             // FactoryBean是一种特殊的Bean，其返回的对象不是指定类的一个实例，
             // 其返回的是该工厂Bean的getObject方法所返回的对象。
-            definition.setBeanClass(ServiceFactory.class);
+            definition.setBeanClass(RpcProxy.class);
 
             //这里采用的是byType方式注入，类似的还有byName等
             definition.setAutowireMode(GenericBeanDefinition.AUTOWIRE_BY_TYPE);
